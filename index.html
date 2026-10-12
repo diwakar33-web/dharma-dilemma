@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dharma Dilemma: The Mahabharata</title>
+<style>
+:root{--bg:#0d1226;--ink:#efe9da;--mute:#a7abc4;--card:#1b2345;--line:#323b66;--gold:#f0b24a;--on-gold:#141a33;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10152b;--ink:#efe9da;--mute:#a7abc4;--card:#1b2345;--line:#323b66;--gold:#f0b24a;--on-gold:#141a33}}
+:root[data-theme="dark"]{--bg:#10152b;--ink:#efe9da;--mute:#a7abc4;--card:#1b2345;--line:#323b66;--gold:#f0b24a;--on-gold:#141a33}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:radial-gradient(ellipse at 50% 0,#1d2550,#0d1226 70%) fixed;color:var(--ink);font-family:Spectral,Georgia,"Times New Roman",serif;font-size:18px;line-height:1.6}
+main{max-width:800px;margin:0 auto;padding:16px 14px 40px}
+h1{font-size:2.3rem;line-height:1.15;margin:.2em 0 .3em}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.primary,.ghost{padding:.65em 1.3em;border-radius:6px;font-weight:600;margin:0 8px 8px 0}
+.primary{background:var(--gold);color:var(--on-gold);border:0}
+.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.mute{color:var(--mute);font-size:.9rem}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}
+.top button{background:none;border:1px solid var(--line);color:var(--mute);border-radius:6px;padding:.15em .7em;font-size:.85rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:18px 0}
+.ch{text-align:left;background:var(--card);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:8px;padding:12px 14px;line-height:1.4}
+.ch:hover{border-color:var(--gold)}
+.ch .p{color:var(--gold);font-size:.85rem;font-style:italic}
+.ch b{display:block;font-size:1.1rem;margin:2px 0 4px}
+.ch span{font-size:.9rem;color:var(--mute)}
+.ch i{float:right;color:var(--gold);font-style:normal}
+.stage{position:relative;height:320px;border-radius:10px 10px 0 0;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;gap:clamp(14px,6vw,60px);padding-bottom:20px}
+.sky,.mood,.env{position:absolute;left:0;right:0}
+.sky{inset:0;animation:f .9s}
+@keyframes f{from{opacity:.2}to{opacity:1}}
+.sun{position:absolute;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#fff6d0,#ffd27a 55%,transparent 70%);top:24px;right:14%;opacity:.8}
+.env{bottom:0;height:58%;width:100%}
+.env svg{width:100%;height:100%;display:block}
+.mood{inset:0;opacity:0;transition:opacity 1s,background 1s;pointer-events:none}
+.place{position:absolute;top:10px;left:14px;color:#fff;font-size:.85rem;text-shadow:0 1px 4px #000;z-index:3}
+.chr{position:relative;z-index:2;text-align:center;transition:transform .3s,opacity .3s,filter .3s;opacity:.5;filter:grayscale(.7)}
+.chr.on{opacity:1;filter:none;transform:translateY(-14px) scale(1.07)}
+.face{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;font-size:44px;border:4px solid var(--c);background:rgba(10,12,30,.7)}
+.chr.on .face{box-shadow:0 0 22px var(--c)}
+.nm{color:#fff;font-size:.85rem;margin-top:4px;text-shadow:0 1px 4px #000}
+.box{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:0 0 10px 10px;padding:14px 18px 16px;min-height:160px}
+.who{font-weight:700;color:var(--gold)}
+.txt{min-height:3.6em}
+.txt.nar{font-style:italic;color:var(--mute)}
+.hint{margin-top:8px;font-size:.85rem;color:var(--mute);text-align:right}
+.choice{display:block;width:100%;text-align:left;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-left:5px solid var(--gold);padding:.65em 1em;margin:8px 0 0;border-radius:6px}
+.choice:hover{border-color:var(--gold)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1em 1.2em;margin:0 0 1em}
+.bar{display:flex;align-items:center;gap:10px;margin:.5em 0;font-size:.95rem}
+.bar b{width:6.5em}
+.track{flex:1;height:12px;background:var(--line);border-radius:6px;overflow:hidden}
+.fill{height:100%;background:var(--gold)}
+.stage{border-radius:0}
+.hud{display:flex;align-items:center;gap:10px;background:#080b1c;border:1px solid var(--line);border-radius:10px 10px 0 0;padding:8px 12px;font-size:.85rem}
+.hud .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud button{background:none;border:1px solid var(--line);color:var(--mute);border-radius:6px;padding:.1em .7em;font-size:.85rem}
+.dm{width:100px;height:10px;background:#2a2f55;border-radius:6px;overflow:hidden}
+.dm i{display:block;height:100%;width:50%;background:linear-gradient(90deg,#b3261e,#f0b24a,#6fe3a0);transition:width .6s}
+#fx{position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:none}
+.pop{position:absolute;left:50%;top:36%;z-index:5;transform:translateX(-50%);font-weight:700;font-size:1.3rem;color:#fff;text-shadow:0 2px 8px #000;white-space:nowrap;animation:up 1.3s forwards;pointer-events:none}
+@keyframes up{to{transform:translate(-50%,-60px);opacity:0}}
+.shake{animation:sk .4s}
+@keyframes sk{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.flash{position:absolute;inset:0;z-index:4;opacity:0;pointer-events:none;animation:fl .6s}
+@keyframes fl{from{opacity:.55}to{opacity:0}}
+.intro{position:absolute;inset:0;z-index:6;display:grid;place-items:center;background:#05061a;color:#fff;text-align:center;animation:out 2.6s forwards;pointer-events:none}
+.intro h1{font-size:2.2rem;margin:.1em 0}
+@keyframes out{0%,65%{opacity:1}100%{opacity:0;visibility:hidden}}
+.title{text-align:center;padding:24px 10px 4px}
+.title h1{font-size:3rem;text-shadow:0 0 30px rgba(240,178,74,.45)}
+.ch{transition:transform .2s,box-shadow .2s}
+.ch:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(240,178,74,.25)}
+.choice{transition:transform .15s}.choice:hover{transform:translateX(4px)}
+.splash{position:relative;height:min(84vh,580px);min-height:440px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.splash .sun{width:150px;height:150px;top:12%;right:50%;transform:translateX(50%)}
+.sp{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 16px}
+.sp h1{font-size:clamp(3rem,12vw,5.5rem);line-height:1;margin:.15em 0;text-shadow:0 0 40px rgba(240,178,74,.7),0 3px 0 #0006;letter-spacing:.03em}
+.sp p{color:#f4e8c8;margin:.2em 0 1.2em;text-shadow:0 1px 6px #000}
+.go{font-size:1.2rem;padding:.8em 2.2em;box-shadow:0 0 24px rgba(240,178,74,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{50%{box-shadow:0 0 44px rgba(240,178,74,1);transform:scale(1.04)}}
+@media (prefers-reduced-motion:reduce){.chr,.mood,.ch,.choice{transition:none}.sky,.shake,.flash,.go{animation:none}.intro{display:none}}
+@media (max-width:520px){.stage{height:260px}.face{width:66px;height:66px;font-size:32px}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const C={
+arjuna:["Arjuna","🏹","#5b8de0"],krishna:["Krishna","🪈","#4fb6d6"],kunti:["Kunti","🌸","#d986b0"],karna:["Karna","☀️","#f0a63a"],
+bhishma:["Bhishma","🛡️","#c9c9d6"],draupadi:["Draupadi","🔥","#e0603f"],duryodhana:["Duryodhana","👑","#a56bd6"],
+dasa:["Fisher-chief","⚓","#7fb2a0"],yudhishthira:["Yudhishthira","⚖️","#e3d36b"],shakuni:["Shakuni","🎲","#b0603a"],
+yaksha:["The Yaksha","👁️","#6fd3a4"],abhimanyu:["Abhimanyu","🌀","#6aa0ff"],bhima:["Bhima","🔨","#d97f4a"],drona:["Drona","📜","#cfc29a"],ekalavya:["Ekalavya","🎯","#8bc34a"],gandhari:["Gandhari","🪢","#c9a0dc"]};
+const SK={dawn:"linear-gradient(#2a2f6b,#c4586b 60%,#f0a35a)",day:"linear-gradient(#3b6fb0,#9cc3e6 70%,#e9d7a6)",dusk:"linear-gradient(#1b1f4a,#7a4a7a 55%,#e08a4f)",night:"linear-gradient(#05060f,#141a3a 70%,#2a2f55)",fire:"linear-gradient(#2a0a08,#8a2a12 60%,#f08a30)",hall:"linear-gradient(#1c0f14,#4a2226 70%,#7a3a2a)",green:"linear-gradient(#17352b,#2f6b4f 70%,#9cc58a)"};
+const VAL={duty:"Duty",truth:"Truth",loyalty:"Loyalty",compassion:"Compassion"};
+// node: [speaker, text, next id | choices | null, optional sky]; choice: [text, values, goto, mood change]
+const S=[
+{p:"Adi Parva",t:"The Vow of Bhishma",d:"A prince gives up a throne for his father.",me:"Devavrata",sky:"dusk",env:"river",cast:["bhishma","dasa"],st:"a1",
+L:"A vow made from love can become a chain. Ask what you are binding your future self to.",N:{
+a1:["n","Prince Devavrata asks a fisher-chief for his daughter Satyavati's hand, on behalf of his father, King Shantanu.","a2"],
+a2:["dasa","My daughter's sons must rule after Shantanu. Will you, the crown prince, step aside?","a3"],
+a3:["n","Your father's happiness against your own throne.",[["I give up the throne.",{duty:2,compassion:1},"a4",1],["The throne is my birthright. I cannot.",{truth:1,duty:-1},"a5",-1]]],
+a4:["dasa","But your own sons may claim it one day.","a6"],
+a5:["dasa","Then there is no marriage. Shantanu may grieve in silence.","a5b"],
+a5b:["n","You see what your pride costs a father, and your resolve changes.","a6"],
+a6:["bhishma","Then hear my vow. I will never take the throne, never marry, never have children.","a7","night"],
+a7:["n","Flowers rain from the sky. They name him Bhishma, the terrible. His vow will hold the Kuru house together, and one day trap him.",null]}},
+{p:"Sabha Parva",t:"The Dice Game",d:"A friendly game that lost a kingdom.",me:"Yudhishthira",sky:"hall",env:"hall",cast:["yudhishthira","shakuni","draupadi"],st:"b1",
+L:"Refusing a trap is wise, but pride and social pressure make good people accept bad bets.",N:{
+b1:["n","The great hall. Duryodhana's uncle Shakuni offers a friendly game of dice.","b2"],
+b2:["shakuni","Only a game among kin, Yudhishthira. Surely a king does not refuse a challenge?",[["Decline. These dice cannot be honest.",{truth:1,duty:1},"b3",1],["Accept. A king cannot refuse.",{duty:-1,loyalty:1},"b5",-1]]],
+b3:["shakuni","Afraid, then? In front of all your elders?",[["Hold firm: “I fear nothing, but I will not play a crooked game.”",{truth:2,compassion:1},"b4",2],["Give in. “One game, then.”",{duty:-1},"b5",-1]]],
+b4:["n","The game never starts. In the epic Yudhishthira said yes, and the war grew from there. Here you broke the chain, but Duryodhana will find another way.",null],
+b5:["n","You stake jewels, then wealth, then your kingdom, your brothers, yourself. At last, Draupadi.","b6","fire"],
+b6:["draupadi","Did he lose himself before he staked me? Elders, answer!","b7"],
+b7:["n","Only Vidura speaks against the shame. The silence of the hall is the real loss.",null]}},
+{p:"Vana Parva",t:"Questions of the Yaksha",d:"Exile, a lake, and one brother to save.",me:"Yudhishthira",sky:"green",env:"forest",cast:["yudhishthira","yaksha"],st:"c1",
+L:"Fairness to those with less voice is part of dharma. Thinking of Madri's son earned him all five brothers.",N:{
+c1:["n","Near the end of exile, four brothers lie lifeless by a lake. They drank before answering a Yaksha's questions.","c2"],
+c2:["yaksha","Answer, or join them. What is the greatest wonder in the world?",[["Each day beings die, yet the living think they will live forever.",{truth:2},"c3",1],["Gold, power and fame.",{truth:-1},"c2b",-1]]],
+c2b:["yaksha","A shallow answer. Look at your brothers and think again.","c3"],
+c3:["yaksha","Wise enough. I will revive one brother. Choose.",[["Nakula",{compassion:3,truth:1},"c4",2],["Bhima, the strongest",{duty:1,loyalty:1},"c5",0],["Arjuna, the best warrior",{duty:1},"c5",0]]],
+c4:["yaksha","Why Nakula, not mighty Bhima or Arjuna?","c4b"],
+c4b:["yudhishthira","Kunti has me. Madri should have a living son too. Dharma is not only for my own.","c6"],
+c5:["yaksha","A strong choice for war. But Madri, mother of Nakula and Sahadeva, would be left with no son.","c5b"],
+c5b:["yudhishthira","You are right. Then I choose Nakula.","c6"],
+c6:["yaksha","Because you thought of the one with less voice, all your brothers live.","c7","day"],
+c7:["n","The Yaksha was Dharma himself, Yudhishthira's divine father, testing him.",null]}},
+{p:"Udyoga Parva",t:"The Last Peace",d:"Krishna rides to the Kuru court.",me:"Krishna",sky:"hall",env:"hall",cast:["krishna","duryodhana"],st:"d1",
+L:"Peace must be sincerely offered even when you expect refusal. It is what makes later action just.",N:{
+d1:["n","Exile is over. You ride to the Kuru court as the Pandavas' envoy.","d2"],
+d2:["n","What do you ask for?",[["Only five villages, one for each Pandava.",{compassion:2,truth:1},"d3",2],["Half the kingdom, as is their right.",{duty:2},"d3b",0]]],
+d3:["duryodhana","Not even land the size of a needle's point, without war.","d4"],
+d3b:["duryodhana","The kingdom is mine. Take nothing, or take war.","d4"],
+d4:["n","Duryodhana tries to seize you. What do you do?",[["Reveal your cosmic form. The court trembles.",{truth:1,duty:1},"d5",1],["Leave calmly, saying nothing more.",{compassion:1},"d5",-1]]],
+d5:["krishna","I offered peace in good faith. What follows is no longer mine to prevent.","d6","fire"],
+d6:["n","Both sides now know war is coming. The Kauravas were given every chance.",null]}},
+{p:"Udyoga Parva",t:"Mother and Son",d:"Kunti reveals Karna's birth.",me:"Karna",sky:"dusk",env:"river",cast:["kunti","karna"],st:"e1",
+L:"Loyalty is a great virtue, but it can chain a good person to an unjust cause.",N:{
+e1:["n","Dusk by the Ganga. Karna is praying to the sun when a veiled woman approaches.","e2"],
+e2:["kunti","Karna... my son. You are my firstborn. I set you on the river when I was a frightened girl.","e3"],
+e3:["karna","The world mocked my birth for thirty years. Only Duryodhana gave me a name. Now, on the eve of war, you remember me?","e4"],
+e4:["kunti","Come to your brothers. You will be king.",[["I will join the Pandavas.",{truth:2,loyalty:-2},"e5",1],["I stay with Duryodhana. Friendship is not repaid only in easy seasons.",{loyalty:3,truth:-1},"e6",-1],["I stay, but you will still have five sons.",{loyalty:2,compassion:2},"e7",0]]],
+e5:["n","A crown built on a friend's broken trust is heavy. The epic does not say whether Karna could carry it.",null],
+e6:["kunti","Even knowing his cause is unjust?","e7"],
+e7:["karna","I will spare your other sons. Only Arjuna I must face. Whether he falls or I do, you will have five.","e8"],
+e8:["n","Kunti walks away into the dark. Karna turns back to the sun, alone.",null]}},
+{p:"Bhishma Parva",t:"The Gita at Kurukshetra",d:"Arjuna's doubt, Krishna's teaching.",me:"Arjuna",sky:"dawn",env:"war",cast:["arjuna","krishna"],st:"f1",
+L:"Act fully, release attachment to the result, and know that not choosing is also a choice.",N:{
+f1:["n","Dawn. Conches sound. Between the two armies, Krishna halts the chariot.","f2"],
+f2:["arjuna","How can I raise my bow against Bhishma, who raised me, and Drona, who taught me? My limbs fail.","f3"],
+f3:["krishna","You grieve for those who should not be grieved. Tell me plainly: what will you do?",[["I will not fight. Take me away.",{compassion:2,duty:-1},"f4",-1],["Teach me, Krishna.",{duty:2,truth:1},"f5",1],["Ask the Kauravas for peace once more.",{compassion:1,truth:1},"f6",0]]],
+f4:["krishna","Is this compassion, or fear in compassion's robe? Walking away saves no one.","f5"],
+f6:["krishna","I already asked, Arjuna. Five villages. They refused.","f5"],
+f5:["krishna","You have a right to action alone, never to its fruits. Act without clinging to results, and never cling to inaction.",[["I will fight, as my duty, without hatred.",{duty:3},"f7",1],["I still cannot lift my bow.",{compassion:2,duty:-1},"f8",-1]]],
+f8:["krishna","Not choosing is also a choice, Arjuna, with its own price.","f7"],
+f7:["arjuna","Then I will act as you say, and carry the sorrow with me.","f9"],
+f9:["n","Arjuna lifts Gandiva. Across the field, the conches roar.",null]}},
+{p:"Drona Parva",t:"The Chakravyuha",d:"A boy enters a wheel of warriors.",me:"Abhimanyu",sky:"day",env:"war",cast:["abhimanyu","bhima","drona"],st:"g1",
+L:"Brave hearts with partial knowledge need support, and a war that breaks its own rules harms everyone.",N:{
+g1:["n","Day thirteen. Drona forms the Chakravyuha, a spinning wheel of warriors. Only Arjuna can break it, and he has been lured away.","g2"],
+g2:["bhima","Abhimanyu, you know how to enter it. Can you also leave?","g3"],
+g3:["n","Sixteen years old, you learned the entry from your father's words in the womb, but never the exit.",[["I will enter. Follow me through the breach.",{duty:2,loyalty:1},"g5",-1],["I will wait for Father.",{truth:1,compassion:1},"g4",1]]],
+g4:["bhima","Every moment we wait, our soldiers die.","g5"],
+g5:["n","You break into the formation, but Jayadratha blocks Bhima and the rest. Alone, you face seven warriors.",[["Fight on. “I will not yield.”",{duty:2},"g6",-1],["Call to Bhima for help.",{loyalty:2},"g6",-1]]],
+g6:["drona","Seven of us together, then. He cannot be taken otherwise.","g7","fire"],
+g7:["n","They break the rules of war. Abhimanyu falls, and Arjuna's grief will become a vow.",null]}},
+{p:"Karna Parva",t:"The Stuck Wheel",d:"An unarmed enemy asks for mercy.",me:"Arjuna",sky:"fire",env:"war",cast:["arjuna","karna","krishna"],st:"h1",
+L:"Those who broke the rules cannot demand them when it suits. Yet mercy and victory rarely agree.",N:{
+h1:["n","Day seventeen. Karna's chariot wheel sinks into the mud. He steps down, unarmed, to lift it.","h2"],
+h2:["karna","Arjuna! Hold your arrows. A warrior does not strike one who is helpless. You know the rule.","h3"],
+h3:["krishna","Now you remember dharma, Karna? Where was it when Draupadi was dragged into the hall, or when Abhimanyu stood alone against seven?",[["Shoot. Krishna is right. This is justice.",{duty:1,truth:1},"h4",-1],["Lower the bow. The rule applies to everyone.",{compassion:2,truth:2},"h5",1]]],
+h4:["n","Arjuna looses the arrow. Karna falls, and Kunti's secret grief begins.",null],
+h5:["krishna","Compassion is not wrong, Arjuna. But Karna will not hesitate when he rises.","h6"],
+h6:["n","In the epic, Arjuna shot. In this telling the duel resumes on equal terms.",null]}},
+{p:"Shanti Parva",t:"The Bed of Arrows",d:"Victory, grief, and the question of ruling.",me:"Yudhishthira",sky:"dusk",env:"war",cast:["yudhishthira","bhishma","krishna"],st:"i1",
+L:"Victory is not the end of dharma. Ruling with humility is its harder half.",N:{
+i1:["n","The war is over. Yudhishthira cannot stop weeping. Bhishma lies on his bed of arrows, waiting for the sun to turn north.","i2"],
+i2:["bhishma","Why do you weep, child? Say what troubles you.",[["The throne is ashes. I will leave for the forest.",{compassion:1,duty:-2},"i3",-1],["Rule, for the people's sake.",{duty:3},"i4",2]]],
+i3:["bhishma","A king who runs from duty leaves his people to chaos. Peace is not found only in the forest.","i4"],
+i4:["bhishma","Then rule as a servant of the people. Protect the weak, speak truth, be fair, and do not cling to power.","i5"],
+i5:["n","Bhishma teaches for many days. At last he lets go of life when the sun turns north, with Krishna beside him.",null]}},
+{p:"Adi Parva",t:"Ekalavya's Thumb",d:"A student's skill, a teacher's promise.",me:"Ekalavya",sky:"green",env:"forest",cast:["ekalavya","drona"],st:"j1",
+L:"A promise made to one person can become an injustice to another. Ask who pays for a teacher's word.",N:{
+j1:["n","In the forest, Ekalavya, a tribal prince Drona once refused, practises before a clay image of the teacher. His arrows now outshoot even Arjuna's.","j2"],
+j2:["drona","A fine archer. Who is your teacher?","j3"],
+j3:["ekalavya","You, Guru Drona. I learned from your image.","j4"],
+j4:["drona","Then pay what a student owes. Give me the thumb of your right hand.",[["Give it. A guru's word is sacred.",{loyalty:3,duty:1,truth:-1},"j5",-1],["Refuse. You never taught me.",{truth:2,loyalty:-1},"j6",1],["Offer anything else: my bow, my life, my service.",{compassion:2,loyalty:1},"j7",0]]],
+j5:["n","He cuts it without hesitation. His skill is lost, and the epic's uneasy question remains: was this devotion, or injustice?",null],
+j6:["drona","Then you owe me nothing, and I owe you nothing.","j6b"],
+j6b:["n","You keep your thumb and your skill, but not the guru's blessing. Fairness to the excluded was never Drona's to give.",null],
+j7:["drona","Nothing else will do. I promised Arjuna that none would surpass him.","j7b"],
+j7b:["n","Even a good teacher can be trapped by a promise to one student, at the cost of another's life's work.",null]}},
+{p:"Gada Parva",t:"The Last Duel",d:"Bhima, a vow, and the rules of combat.",me:"Bhima",sky:"fire",env:"war",cast:["bhima","duryodhana","krishna"],st:"k1",
+L:"A vow and a rule can pull in opposite directions. Dharma asks which one you will answer for.",N:{
+k1:["n","The last day. Duryodhana, wounded, stands alone. You, Bhima, challenge him to a mace duel.","k2"],
+k2:["duryodhana","Come, then. One last blow decides everything.","k3"],
+k3:["n","The duel is even. You remember your vow in the dice hall: to break his thigh.",[["Strike the thigh, against the rules of mace-fighting.",{duty:-1,loyalty:2},"k4",-1],["Fight honourably and trust your strength.",{truth:2,duty:1},"k5",1]]],
+k4:["krishna","A vow is a vow, Bhima, and Duryodhana broke every rule himself.","k4b"],
+k4b:["n","Duryodhana falls. Balarama is furious at the unfair blow, and the victory feels hollow.",null],
+k5:["n","You strike, miss, strike again, and finally break his guard fairly. In the epic Bhima struck the thigh. Here your honour costs the vow, but wins respect.",null]}},
+{p:"Stri Parva",t:"Gandhari's Curse",d:"A grieving mother meets Krishna.",me:"Krishna",sky:"dusk",env:"war",cast:["gandhari","krishna"],st:"l1",
+L:"Grief deserves to be heard, not argued away. Even the wise accept the consequences of a war they could not stop.",N:{
+l1:["n","The field of the dead. Gandhari, blindfolded for life, walks among her hundred fallen sons.","l2"],
+l2:["gandhari","Krishna, you could have stopped it. You did not. Why?",[["I offered peace. Your son chose war.",{truth:2},"l3",0],["Your grief is a mother's right. I will bear what you say.",{compassion:3},"l4",1],["Say nothing.",{compassion:1,loyalty:-1},"l5",-1]]],
+l3:["gandhari","You are right, and it lessens nothing. Hear my curse.","l7"],
+l4:["gandhari","Then bear this. As my clan has died, so shall yours.","l8"],
+l5:["gandhari","Your silence is an answer. Hear my curse.","l7"],
+l7:["gandhari","As my sons fell, so shall your clan fall.","l8"],
+l8:["krishna","So it shall be. I accept it.","l9"],
+l9:["n","In time the Yadavas destroy one another, and Krishna leaves the world. Even gods are bound by consequence.",null]}}
+];
+function env(t){const f="#0a0a16";let s='<svg viewBox="0 0 400 120" preserveAspectRatio="none">';
+if(t=="war"){s+=`<path d="M0 120V92Q60 80 120 94T250 88T400 90V120Z" fill="${f}"/>`;for(let i=0;i<30;i++){const x=i*13.5+(i*7%6),h=26+(i*13%34);s+=`<path d="M${x} 100V${100-h}" stroke="${f}" stroke-width="1.3"/><path d="M${x} ${100-h}l9 4-9 4z" fill="${f}"/>`}}
+else if(t=="hall"){for(let i=0;i<7;i++)s+=`<rect x="${12+i*62}" y="10" width="14" height="110" fill="${f}"/>`;s+=`<rect y="100" width="400" height="20" fill="${f}"/>`}
+else if(t=="forest"){for(let i=0;i<22;i++){const x=i*19,h=50+(i*17%40);s+=`<path d="M${x} 120l12-${h}l12 ${h}z" fill="${f}"/>`}}
+else s+=`<path d="M0 120V80Q80 60 160 85T320 78T400 82V120Z" fill="${f}"/>`;
+return s+"</svg>"}
+const app=document.getElementById("app");
+let st={};try{st=JSON.parse(localStorage.getItem("dd")||"{}")}catch(e){}
+let done=st.done||[],score=st.score||{duty:0,truth:0,loyalty:0,compassion:0};
+let si,id,mood,typing,timer,full;
+function save(){try{localStorage.setItem("dd",JSON.stringify({done,score}))}catch(e){}}
+function menu(){app.innerHTML=`<div class="top"><button id="tt">Title screen</button><button id="th">Sound: ${on?"on":"off"}</button></div><div class="title"><h1>⚔ Dharma Dilemma ⚔</h1><p class="mute">${done.length} of ${S.length} levels cleared. Badges: ${badges()}</p></div>
+<p class="mute" style="text-align:center">Twelve levels from the epic. Play as its heroes, talk, choose, and watch the battlefield answer.</p>
+<div class="grid">${S.map((s,n)=>`<button class="ch" data-n="${n}"><span class="p">Level ${n+1}: ${s.p}${done.includes(n)?"<i>★</i>":""}</span><b>${s.t}</b><span>${s.d}</span></button>`).join("")}</div>
+<button class="primary" id="pf">My dharma profile</button>`;
+th.onclick=snd;tt.onclick=splash;pf.onclick=profile;document.querySelectorAll(".ch").forEach(b=>b.onclick=()=>play(+b.dataset.n))}
+function play(n){si=n;mood=0;const s=S[n];
+app.innerHTML=`<div class="hud"><span class="t">${s.p}: ${s.t}</span><span title="Dharma meter">☸</span><div class="dm"><i id="dm"></i></div><span id="ptx">${pt} pts</span><button id="mn">Exit</button></div>
+<div class="stage" id="stg"><div class="intro"><div><div class="mute">${s.p}</div><h1>${s.t}</h1><div>You play ${s.me}</div></div></div><canvas id="fx"></canvas><div class="sky" id="sky"></div><div class="sun"></div><div class="env">${env(s.env)}</div><div class="mood" id="mood"></div><div class="place">${s.p}</div>
+${s.cast.map(k=>`<div class="chr" id="c-${k}" style="--c:${C[k][2]}"><div class="face">${C[k][1]}</div><div class="nm">${C[k][0]}</div></div>`).join("")}</div>
+<div class="box" id="box" tabindex="0" aria-live="polite"><div class="who" id="who"></div><div class="txt" id="txt"></div><div id="ch"></div><div class="hint" id="hint"></div></div>`;
+mn.onclick=menu;box.onclick=adv;box.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();adv()}else{const b=ch.querySelectorAll(".choice")[+e.key-1];b&&b.click()}};
+setSky(s.sky);look();parts();show(s.st)}
+function setSky(k){sky.style.background=SK[k];sky.style.animation="none";sky.offsetWidth;sky.style.animation=""}
+function look(){const a=Math.min(1,Math.abs(mood)/3);const m=document.getElementById("mood");m.style.background=mood<0?"linear-gradient(rgba(130,0,0,.55),rgba(40,0,0,.3))":"radial-gradient(circle at 50% 100%,rgba(255,215,120,.6),transparent 70%)";m.style.opacity=mood==0?0:a;dm.style.width=Math.max(6,Math.min(100,50+mood*13))+"%"}
+function show(i){id=i;const nd=S[si].N[i];
+document.querySelectorAll(".chr").forEach(e=>e.classList.remove("on"));
+if(nd[0]!="n")document.getElementById("c-"+nd[0]).classList.add("on");
+if(nd[3])setSky(nd[3]);
+who.textContent=nd[0]=="n"?"":C[nd[0]][0];txt.className="txt"+(nd[0]=="n"?" nar":"");ch.innerHTML="";hint.textContent="";
+full=nd[1];txt.textContent="";let k=0;typing=true;clearInterval(timer);
+timer=setInterval(()=>{txt.textContent=full.slice(0,++k);if(k>=full.length)fin()},16);box.focus({preventScroll:true})}
+function fin(){clearInterval(timer);typing=false;txt.textContent=full;const nd=S[si].N[id];
+if(Array.isArray(nd[2])){ch.innerHTML=nd[2].map((c,k)=>`<button class="choice" data-k="${k}">${c[0]}</button>`).join("");
+ch.querySelectorAll(".choice").forEach(b=>b.onclick=e=>{e.stopPropagation();pick(nd[2][+b.dataset.k])})}
+else hint.textContent=nd[2]?"Click or press Enter to continue":"Click or press Enter to finish the chapter"}
+function pick(c){let o="",g=0;for(const x in c[1]){score[x]+=c[1][x];g+=c[1][x];o+=(c[1][x]>0?"+":"")+c[1][x]+" "+VAL[x]+" "}
+pt+=Math.max(0,g)*10;ptx.textContent=pt+" pts";mood+=c[3];look();beep(c[3]<0?140:c[3]>0?660:330,.25);fx_(o,c[3]);show(c[2])}
+function adv(){if(typing){fin();return}const nd=S[si].N[id];if(Array.isArray(nd[2]))return;if(nd[2])show(nd[2]);else finish()}
+function finish(){if(!done.includes(si))done.push(si);save();beep(880,.4);const s=S[si],last=si>=S.length-1;
+app.innerHTML=`<h1>${s.t}</h1><div style="text-align:center"><div style="font-size:2.4rem">${mood>=2?"⭐⭐⭐":mood>=0?"⭐⭐":"⭐"}</div><p class="mute">${mood>=2?"The sky is golden. Your dharma held.":mood>=0?"A hard path, walked with care.":"The sky is dark. Dharma was costly here."}</p></div><div class="panel"><p class="mute">What this chapter teaches</p><p>${s.L}</p></div>
+${last?"":`<button class="primary" id="nx">Next chapter</button>`}<button class="ghost" id="rp">Replay</button><button class="ghost" id="al">All chapters</button><button class="ghost" id="pr">My profile</button>`;
+if(!last)nx.onclick=()=>play(si+1);rp.onclick=()=>play(si);al.onclick=menu;pr.onclick=profile}
+function profile(){const max=Math.max(...Object.values(score).map(Math.abs),1),keys=Object.keys(score).sort((a,b)=>score[b]-score[a]),top=keys[0];
+const msg={duty:"You lean on duty. The Gita's caution: act rightly, but never let the rule replace your own judgment.",truth:"You lean on truth. The epic's caution: truth without compassion can wound, and silence can be its own kind of lie.",loyalty:"You lean on loyalty. Karna is your mirror: devotion is beautiful, but ask whom it serves.",compassion:"You lean on compassion. Arjuna is your mirror: care must be joined to action, or it leaves the world unprotected."};
+app.innerHTML=`<h1>My dharma profile</h1><p class="mute">${done.length} of ${S.length} levels played. Badges: ${badges()}</p><div class="panel">${keys.map(k=>`<div class="bar"><b>${VAL[k]}</b><div class="track"><div class="fill" style="width:${Math.max(score[k],0)/max*100}%"></div></div><span>${score[k]}</span></div>`).join("")}</div>
+<p>${done.length?msg[top]:"Play a chapter to see what your choices show."}</p><p class="mute">Krishna's lesson is not to rank these values but to hold them together and act with a clear mind.</p>
+<button class="primary" id="al">All chapters</button><button class="ghost" id="rs">Reset progress</button>`;
+al.onclick=menu;rs.onclick=()=>{done=[];score={duty:0,truth:0,loyalty:0,compassion:0};save();menu()}}
+function theme(){const r=document.documentElement,d=matchMedia("(prefers-color-scheme:dark)").matches,cur=r.dataset.theme||(d?"dark":"light");r.dataset.theme=cur==="dark"?"light":"dark"}
+let pt=0,AC=null,on=true,raf;
+function beep(f,d){if(!on)return;try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type="triangle";o.frequency.value=f;g.gain.setValueAtTime(.08,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function snd(){on=!on;th.textContent="Sound: "+(on?"on":"off")}
+function fx_(t,m){const s=document.getElementById("stg");s.classList.remove("shake");s.offsetWidth;if(m<0)s.classList.add("shake");
+s.insertAdjacentHTML("beforeend",`<div class="pop">${t}</div><div class="flash" style="background:${m<0?"#a00":"#ffe9a8"}"></div>`);
+setTimeout(()=>s.querySelectorAll(".pop,.flash").forEach(e=>e.remove()),1400)}
+function parts(){cancelAnimationFrame(raf);if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+const c=document.getElementById("fx"),x=c.getContext("2d"),w=c.width=c.offsetWidth,h=c.height=c.offsetHeight,ps=[...Array(40)].map(()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+.5,v:Math.random()+.3}));
+(function t(){if(!c.isConnected)return;x.clearRect(0,0,w,h);x.fillStyle=mood<0?"rgba(255,90,40,.8)":"rgba(255,225,140,.8)";
+ps.forEach(p=>{p.y-=p.v;p.x+=Math.sin(p.y/20)*.4;if(p.y<0){p.y=h;p.x=Math.random()*w}x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill()});raf=requestAnimationFrame(t)})()}
+function badges(){const b=[];if(done.length>=3)b.push("🥉 Wanderer");if(done.length>=6)b.push("🥈 Warrior");if(done.length>=S.length)b.push("🥇 Dharmaraja");
+if(score.compassion>=8)b.push("🌸 Compassionate");if(score.truth>=8)b.push("⚖️ Truthful");if(score.duty>=8)b.push("🏹 Dutiful");if(score.loyalty>=8)b.push("🛡️ Loyal");return b.join(" ")||"none yet"}
+function splash(){cancelAnimationFrame(raf);app.innerHTML=`<div class="splash"><div class="sky" style="background:${SK.dusk}"></div><div class="sun"></div><div class="env">${env("war")}</div><canvas id="fx"></canvas>
+<div class="top" style="position:absolute;top:10px;right:12px;z-index:3"><button id="th">Sound: ${on?"on":"off"}</button></div>
+<div class="sp"><div style="color:#f0d9a8;letter-spacing:.2em;font-size:.95rem">धर्मक्षेत्रे कुरुक्षेत्रे</div><h1>Dharma<br>Dilemma</h1><p>Walk the Mahabharata. Every choice has a cost.</p>
+<button class="primary go" id="gb">▶ Start Game</button>${done.length?`<div style="margin-top:6px;color:#d8cfae;font-size:.9rem">${done.length} of ${S.length} levels cleared</div>`:""}</div></div>`;
+th.onclick=snd;document.getElementById("gb").onclick=()=>{beep(520,.3);menu()};parts()}
+splash();
+</script>
+</body>
+</html>
